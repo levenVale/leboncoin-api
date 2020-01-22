@@ -8,6 +8,8 @@ const uid2 = require("uid2");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 
+const isAuthenticated = require("../middleware/isAuthenticated");
+
 // SIGN UP
 router.post("/user/sign_up", async (req, res) => {
   try {
@@ -63,6 +65,12 @@ router.post("/user/log_in", async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "An error has occurred" });
   }
+});
+
+// test to see if user is logged in
+router.post("/user/test", isAuthenticated, async (req, res) => {
+  console.log(req.user);
+  res.json({ message: "test route" });
 });
 
 module.exports = router;
