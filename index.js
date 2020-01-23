@@ -1,3 +1,8 @@
+require("dotenv").config();
+
+const cors = require("cors");
+app.use(cors());
+
 const express = require("express");
 const app = express();
 
@@ -5,7 +10,7 @@ const formidableMiddleWare = require("express-formidable");
 app.use(formidableMiddleWare());
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/leboncoin", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
@@ -28,6 +33,6 @@ app.get("*", (req, res) => {
   res.json({ message: "Route not found" });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server started");
 });
