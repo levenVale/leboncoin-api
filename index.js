@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   try {
     res.json({ message: "Welcome to leboncoin" });
   } catch (error) {
-    res.json(error.message);
+    res.status(404).json({ message: "Page not found" });
   }
 });
 
