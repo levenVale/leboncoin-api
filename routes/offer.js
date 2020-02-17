@@ -1,17 +1,38 @@
 const express = require("express");
 const router = express.Router();
 
-const Offer = require("../models/Offer");
+const formidableMiddleware = require("express-formidable");
+const server = express();
+server.use(formidableMiddleware);
 
+const Offer = require("../models/Offer");
 const isAuthenticated = require("../middleware/isAuthenticated");
+
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: "dzzyt6yhh",
+  api_key: "process.env.CLOUDINARY_API_KEY",
+  api_secret: "process.env.CLOUDINARY_API_SECRET"
+});
 
 // CREATE
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
+    cloudinary.uploader.upload(req.file.path, (error, result) => {
+      if (error) {
+        return res.json({ error: `Upload Error` });
+      } else {
+        return res.json(result);
+      }
+    });
+
+    console.log(res.json(result));
+
     const newPost = await new Offer({
       title: req.fields.title,
       description: req.fields.description,
       price: req.fields.price,
+      // pictures: req.files,
       created: new Date(),
       creator: req.user.populate("account")
     });
