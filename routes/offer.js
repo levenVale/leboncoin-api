@@ -18,50 +18,90 @@ cloudinary.config({
 // CREATE
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
-    // console.log(req.files.files.path);
-    cloudinary.uploader.upload(req.files.files.path, async (error, result) => {
-      if (error) {
-        console.log(error);
-        return res.json({ error: `Upload Error` });
-      } else {
-        const newPost = await new Offer({
-          title: req.fields.title,
-          description: req.fields.description,
-          price: req.fields.price,
-          pictures: result.secure_url,
-          created: new Date(),
-          creator: req.user.populate("account")
-        });
-        if (req.fields.description.length > 500) {
-          return res
-            .status(400)
-            .json({ message: "Description must be 500 characters or less" });
-        }
-        if (req.fields.title.length > 50) {
-          return res
-            .status(400)
-            .json({ error: "Title must be 50 characters or less" });
-        }
-        if (req.fields.price > 100000) {
-          return res
-            .status(400)
-            .json({ error: "Price must be 100 000 or less" });
-        } else {
-          res.json({
-            _id: newPost._id,
-            title: newPost.title,
-            price: newPost.price,
-            pictures: newPost.pictures,
-            created: newPost.created,
-            creator: {
-              account: { username: newPost.creator.account.username },
-              _id: newPost.creator.id
+
+    const files = Object.keys(req.files);
+  if (files.length) {
+    const results = {};
+    
+    files.forEach(fileKey => {
+      
+      cloudinary.v2.uploader.upload(
+        req.files[fileKey].path,
+        {
+          
+          folder: 'some_folder'
+        },
+        (error, result) => {
+          
+          if (error) {
+            results[fileKey] = {
+              success: false,
+              error: error,
+            };
+          } else {
+            results[fileKey] = {
+              success: true,
+              result: result,
+            };
+          }
+          if (Object.keys(results).length === files.length) {
+            
+            const newPost = await new Offer({
+              title: req.fields.title,
+              description: req.fields.description,
+              price: req.fields.price,
+              pictures: result.secure_url,
+              created: new Date(),
+              creator: req.user.populate("account")
+            });
+            if (req.fields.description.length > 500) {
+              return res
+                .status(400)
+                .json({ message: "Description must be 500 characters or less" });
             }
-          });
-          await newPost.save();
+            if (req.fields.title.length > 50) {
+              return res
+                .status(400)
+                .json({ error: "Title must be 50 characters or less" });
+            }
+            if (req.fields.price > 100000) {
+              return res
+                .status(400)
+                .json({ error: "Price must be 100 000 or less" });
+            } else {
+              res.json({
+                _id: newPost._id,
+                title: newPost.title,
+                price: newPost.price,
+                pictures: newPost.pictures,
+                created: newPost.created,
+                creator: {
+                  account: { username: newPost.creator.account.username },
+                  _id: newPost.creator.id
+                }
+              });
+              await newPost.save();
+            };
+          }
         }
-      }
+      );
     });
+  } else {
+    res.send('No file uploaded!');
+  }
+
+
+    
+
+    // console.log(req.files.files.path);
+    // cloudinary.uploader.upload(req.files.files.path, async (error, result) => {
+    //   if (error) {
+    //     console.log(error);
+    //     return res.json({ error: `Upload Error` });
+    //   } else {
+        
+    //   }
+    // });
   } catch (error) {
     res.json(error.message);
   }
