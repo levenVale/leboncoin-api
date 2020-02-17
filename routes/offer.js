@@ -51,6 +51,7 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
             _id: newPost._id,
             title: newPost.title,
             price: newPost.price,
+            pictures: newPost.pictures,
             created: newPost.created,
             creator: {
               account: { username: newPost.creator.account.username },
