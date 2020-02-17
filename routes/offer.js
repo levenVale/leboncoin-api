@@ -18,8 +18,10 @@ cloudinary.config({
 // CREATE
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
+    // console.log(req.files.files.path);
     cloudinary.uploader.upload(req.files.files.path, async (error, result) => {
       if (error) {
+        console.log(error);
         return res.json({ error: `Upload Error` });
       } else {
         const newPost = await new Offer({
