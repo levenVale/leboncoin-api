@@ -123,6 +123,7 @@ router.get("/offer/:_id", async (req, res) => {
       title: find.title,
       description: find.description,
       price: find.price,
+      pictures: find.pictures,
       creator: {
         account: {
           username: find.creator.account.username,
