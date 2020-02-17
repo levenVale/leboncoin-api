@@ -89,10 +89,6 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
   } else {
     res.send('No file uploaded!');
   }
-
-
-    
-
     // console.log(req.files.files.path);
     // cloudinary.uploader.upload(req.files.files.path, async (error, result) => {
     //   if (error) {
