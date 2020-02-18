@@ -22,15 +22,16 @@ cloudinary.config({
 // CREATE
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
-    const files = await Object.keys(req.files);
+    const pictures = [];
+
+    const files = Object.keys(req.files.files);
     if (files.length) {
       const results = {};
-
       files.forEach(fileKey => {
         cloudinary.uploader.upload(
-          req.files[fileKey].path,
+          req.files.files[fileKey].path,
           {
-            folder: "some_folder"
+            folder: "leboncoin-api"
           },
           async (error, result) => {
             if (error) {
@@ -45,11 +46,15 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
               };
             }
             if (Object.keys(results).length === files.length) {
+              for (let i = 0; i < Object.keys(results).length; i++) {
+                pictures.push(results[fileKey].result.secure_url);
+              }
+
               const newPost = await new Offer({
                 title: req.fields.title,
                 description: req.fields.description,
                 price: req.fields.price,
-                pictures: result.secure_url,
+                pictures: pictures,
                 created: new Date(),
                 creator: req.user.populate("account")
               });
@@ -86,7 +91,7 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
         );
       });
     } else {
-      res.send("No file uploaded!");
+      console.log("No file uploaded!");
     }
   } catch (error) {
     res.json(error.message);
