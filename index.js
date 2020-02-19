@@ -33,15 +33,16 @@ app.get("/", (req, res) => {
 
 app.post("/payment", async (req, res) => {
   const stripeToken = req.fields.stripeToken;
+  const price = req.fields.amount * 100;
+  const description = req.fields.description;
 
   // CREER LA TRANSACTION
   const response = await stripe.charges.create({
-    amount: 10000,
+    amount: price,
     currency: "eur",
-    description: "Description",
+    description: `Leboncoin - ${description}`,
     source: stripeToken
   });
-  console.log(response);
 
   // TODO
   // Enregistrer dans une base MongoDB la transaction
