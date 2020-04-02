@@ -1,3 +1,4 @@
+// import packages
 require("dotenv").config();
 
 const express = require("express");
@@ -11,6 +12,7 @@ const stripe = require("stripe")("sk_test_ubPwJpOzNRjLkK7PKmfEke6E00a485nHD7");
 const formidableMiddleWare = require("express-formidable");
 app.use(formidableMiddleWare({ multiples: true }));
 
+// create MongoDB connection
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -18,11 +20,13 @@ mongoose.connect(process.env.MONGODB_URI, {
   useCreateIndex: true
 });
 
+// import models
 const UserRoutes = require("./routes/user");
 app.use(UserRoutes);
 const OfferRoutes = require("./routes/offer");
 app.use(OfferRoutes);
 
+// home route
 app.get("/", (req, res) => {
   try {
     res.json({ message: "Welcome to leboncoin" });
@@ -31,12 +35,13 @@ app.get("/", (req, res) => {
   }
 });
 
+// payment route
 app.post("/payment", async (req, res) => {
   const stripeToken = req.fields.stripeToken;
   const price = req.fields.amount * 100;
   const description = req.fields.description;
 
-  // CREER LA TRANSACTION
+  // create transaction
   const response = await stripe.charges.create({
     amount: price,
     currency: "eur",
@@ -45,14 +50,16 @@ app.post("/payment", async (req, res) => {
   });
 
   // TODO
-  // Enregistrer dans une base MongoDB la transaction
-  res.json("Hello");
+  // save transaction in MongoDB
+  res.json("Transaction done");
 });
 
+// all routes
 app.get("*", (req, res) => {
   res.json({ message: "Route not found" });
 });
 
+// listen for server
 app.listen(process.env.PORT, () => {
   console.log("Server started");
 });

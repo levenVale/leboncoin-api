@@ -1,3 +1,4 @@
+// import packages
 const express = require("express");
 const router = express.Router();
 
@@ -7,9 +8,10 @@ const uid2 = require("uid2");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 
+// import middleware
 const isAuthenticated = require("../middleware/isAuthenticated");
 
-// SIGN UP
+// SIGN UP route
 router.post("/user/sign_up", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.fields.email });
@@ -45,7 +47,7 @@ router.post("/user/sign_up", async (req, res) => {
   }
 });
 
-// LOG IN
+// LOG IN route
 router.post("/user/log_in", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.fields.email });

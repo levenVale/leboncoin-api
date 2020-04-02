@@ -1,3 +1,4 @@
+// import packages
 const express = require("express");
 const app = express();
 const router = express.Router();
@@ -9,9 +10,11 @@ const formidableMiddleware = require("express-formidable");
 const server = express();
 server.use(formidableMiddleware);
 
+// import model and middleware
 const Offer = require("../models/Offer");
 const isAuthenticated = require("../middleware/isAuthenticated");
 
+// import setup cloudinary
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -19,7 +22,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// CREATE
+// CREATE post route
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
     const pictures = [];
@@ -98,7 +101,7 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
   }
 });
 
-// READ
+// READ post route
 const createFilters = req => {
   const filters = {};
   if (req.query.priceMin) {
@@ -146,9 +149,15 @@ router.get("/offer/with-count", async (req, res) => {
   }
 });
 
+// READ post by id route
 router.get("/offer/:_id", async (req, res) => {
   try {
     const find = await Offer.findById(req.params._id).populate("creator");
+
+    const offers = await Offer.find({
+      creator: find.creator.id
+    });
+
     const product = {
       _id: find._id,
       title: find.title,
@@ -160,7 +169,8 @@ router.get("/offer/:_id", async (req, res) => {
           username: find.creator.account.username,
           phone: find.creator.account.phone
         },
-        _id: find.creator.id
+        _id: find.creator.id,
+        offers: offers.length
       },
       created: find.created
     };

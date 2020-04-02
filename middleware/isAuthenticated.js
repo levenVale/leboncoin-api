@@ -1,5 +1,7 @@
+// import User model
 const User = require("../models/User");
 
+// function to authenticate request from client
 const isAuthenticated = async (req, res, next) => {
   const token = req.headers.authorization;
   //   console.log(token);

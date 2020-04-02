@@ -1,5 +1,7 @@
+// import mongoose
 const mongoose = require("mongoose");
 
+// create MongoDB model
 const Offer = mongoose.model("Offer", {
   title: { type: String, minlength: 1, maxlength: 50, required: true },
   description: { type: String, minlength: 1, maxlength: 500, required: true },
