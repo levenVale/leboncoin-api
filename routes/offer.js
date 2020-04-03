@@ -101,6 +101,7 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
 });
 
 // READ post route
+// create filter function which will be sent as an object in the find method of the read route
 const createFilters = req => {
   const filters = {};
   if (req.query.priceMin) {
@@ -123,26 +124,22 @@ router.get("/offer/with-count", async (req, res) => {
   try {
     const filters = createFilters(req);
     const search = Offer.find(filters);
+    const count = (await Offer.find()).length;
 
     if (req.query.sort === "price-asc") {
       search.sort({ price: 1 });
     } else if (req.query.sort === "price-desc") {
       search.sort({ price: -1 });
-    } else if (req.query.sort === "date-desc") {
-      search.sort({ date: -1 });
-    } else if (req.query.sort === "date-asc") {
-      search.sort({ date: 1 });
     }
 
-    if (req.query.page) {
-      const page = req.query.page;
-      const limit = 3;
+    // limit: maximum number of results
+    // skip: ignores the x first results
+    const limit = Number(req.query.limit);
+    const skip = Number(req.query.skip);
+    search.limit(limit).skip(skip);
 
-      search.limit(limit).skip(limit * (page - 1));
-    }
-
-    const products = await search;
-    res.json(products);
+    const offers = await search.sort({ created: -1 });
+    res.json({ offers, count });
   } catch (error) {
     res.json(error.message);
   }
@@ -157,7 +154,7 @@ router.get("/offer/:_id", async (req, res) => {
       creator: find.creator.id
     });
 
-    const product = {
+    const offer = {
       _id: find._id,
       title: find.title,
       description: find.description,
@@ -173,7 +170,7 @@ router.get("/offer/:_id", async (req, res) => {
       },
       created: find.created
     };
-    res.json(product);
+    res.json(offer);
   } catch (error) {
     res.json(error.message);
   }
