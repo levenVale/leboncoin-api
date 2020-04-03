@@ -71,12 +71,12 @@ npx nodemon index.js
 
 <a href="https://github.com/sebkpf/leboncoin-react">https://github.com/sebkpf/leboncoin-react</a>
 
-- React
-- HTTP request with axios package (get and post)
-- Hooks (useState, useEffect)
-- React Router Dom
-- Stripe React component
-- Loading React component
+- [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+- [React Stripe Elements](https://github.com/stripe/react-stripe-elements)
+- [React Loading Elements](https://github.com/jxnblk/loading)
+- [React Nuka Carousel Elements](https://github.com/FormidableLabs/nuka-carousel)
+- [JS Cookie](https://github.com/js-cookie/js-cookie)
+- [Axios](https://github.com/axios/axios)
 
 ## Deployment
 
