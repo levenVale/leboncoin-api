@@ -124,7 +124,7 @@ router.get("/offer/with-count", async (req, res) => {
   try {
     const filters = createFilters(req);
     const search = Offer.find(filters);
-    const count = (await Offer.find()).length;
+    const count = (await search.find()).length;
 
     if (req.query.sort === "price-asc") {
       search.sort({ price: 1 });
