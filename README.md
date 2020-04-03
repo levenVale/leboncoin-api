@@ -67,7 +67,7 @@ When installation is complete, run with:
 npx nodemon index.js
 ```
 
-## Marvel Client
+## leboncoin Client
 
 <a href="https://github.com/sebkpf/leboncoin-react">https://github.com/sebkpf/leboncoin-react</a>
 
