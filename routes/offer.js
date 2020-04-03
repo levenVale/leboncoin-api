@@ -114,7 +114,7 @@ const createFilters = req => {
     }
     filters.price.$lte = req.query.priceMax;
   }
-  if (req.query.title) {
+  if (req.query.title !== "undefined") {
     filters.title = new RegExp(req.query.title, "i");
   }
   return filters;
@@ -137,7 +137,7 @@ router.get("/offer/with-count", async (req, res) => {
     const limit = Number(req.query.limit);
     const skip = Number(req.query.skip);
     search.limit(limit).skip(skip);
-
+    // const offers = await Offer.find();
     const offers = await search.sort({ created: -1 });
     res.json({ offers, count });
   } catch (error) {
