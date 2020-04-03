@@ -8,7 +8,7 @@ An express server for leboncoin clone
 	<img
 			width="600"
 			alt="demo"
-			src="https://github.com/sebkpf/leboncoin-react/blob/master/documentation/demo.png">
+			src="https://github.com/sebkpf/leboncoin-react/blob/master/documentation/demo.gif">
 </p>
 
 <p align="center">
