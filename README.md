@@ -6,7 +6,7 @@ An express server for leboncoin clone
 
 <p align="center">
 	<img
-			width="600"
+			width="1000"
 			alt="demo"
 			src="https://github.com/sebkpf/leboncoin-react/blob/master/documentation/demo.gif">
 </p>
@@ -26,25 +26,25 @@ An express server for leboncoin clone
 
 ##### Offer
 
-- publish (with <a href="https://cloudinary.com" target="\_blank">Cloudinary</a> upload)
+- publish (with [Cloudinary](https://cloudinary.com) upload)
 - get offers (with mongoose filters)
 - get one offer by its id
-- payment via <a href="https://stripe.com" target="\_blank">Stripe</a>
+- payment via [Stripe](https://stripe.com)
 
 #### Packages
 
-- <a href="https://nodejs.org/en/" target="\_blank">Node.js</a>
-- <a href="https://www.npmjs.com/package/axios" target="\_blank">axios</a>
-- <a href="https://www.npmjs.com/package/express" target="\_blank">express</a>
-- <a href="https://www.npmjs.com/package/express-formidable" target="\_blank">express-formidable</a>
-- <a href="https://www.npmjs.com/package/cors" target="\_blank">cors</a>
-- <a href="https://www.npmjs.com/package/mongoose" target="\_blank">mongoose</a>
-- <a href="https://www.npmjs.com/package/crypto-js" target="\_blank">crypto-js</a>
-- <a href="https://www.npmjs.com/package/js-md5" target="\_blank">js-md5</a>
-- <a href="https://www.npmjs.com/package/uid2" target="\_blank">uid2</a>
-- <a href="https://www.npmjs.com/package/dotenv" target="\_blank">dotenv</a>
-- <a href="https://www.npmjs.com/package/cloudinary" target="\_blank">Cloudinary</a>
-- <a href="https://www.npmjs.com/package/stripe" target="\_blank">Stripe</a>
+- [Node.js](https://nodejs.org/en/)
+- [axios](https://www.npmjs.com/package/axios)
+- [express](https://www.npmjs.com/package/express)
+- [express-formidable](https://www.npmjs.com/package/express-formidable)
+- [cors](https://www.npmjs.com/package/cors)
+- [mongoose](https://www.npmjs.com/package/mongoose)
+- [crypto-js](https://www.npmjs.com/package/crypto-js)
+- [js-md5](https://www.npmjs.com/package/js-md5)
+- [uid2](https://www.npmjs.com/package/uid2)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [Cloudinary](https://www.npmjs.com/package/cloudinary)
+- [Stripe](https://www.npmjs.com/package/stripe)
 
 ### Running the project
 
@@ -69,8 +69,9 @@ npx nodemon index.js
 
 ## leboncoin Client
 
-<a href="https://github.com/sebkpf/leboncoin-react">https://github.com/sebkpf/leboncoin-react</a>
+[https://github.com/sebkpf/leboncoin-react](https://github.com/sebkpf/leboncoin-react)
 
+- [React](https://reactjs.org/docs/getting-started.html)
 - [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
 - [React Stripe Elements](https://github.com/stripe/react-stripe-elements)
 - [React Loading Elements](https://github.com/jxnblk/loading)
@@ -90,4 +91,4 @@ Project is finished
 
 ## Contact
 
-<a href="https://www.linkedin.com/in/sebastienkempf/" target="_blank">My LinkedIn profile</a>
+[My LinkedIn profile](https://www.linkedin.com/in/sebastienkempf/)
